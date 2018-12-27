@@ -29,6 +29,7 @@ export class HeroesComponent implements OnInit {
     this._heroes.borrarHeroe (k).subscribe (response => {
       console.log (response);
       console.log (this.heroes[k]);
+      delete this.heroes[k];
     })
   }
 
