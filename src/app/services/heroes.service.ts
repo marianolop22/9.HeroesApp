@@ -10,11 +10,10 @@ import { map } from 'rxjs/operators';
 })
 export class HeroesService {
 
-  url:string="https://heroesapp-d2555.firebaseio.com/heroes.json";
+  url:string = "https://heroesapp-d2555.firebaseio.com/heroes.json";
+  heroeUrl:string = "https://heroesapp-d2555.firebaseio.com/heroes";
 
-
-
-  constructor( private http:HttpClient ) { }
+  constructor( private http:HttpClient ) {  }
 
   nuevoHeroe ( heroe:Heroe ): Observable<any> {
 
@@ -31,9 +30,57 @@ export class HeroesService {
       //   return response;
       // } )
     );
-
-
   }
+
+
+  actualizarHeroe ( heroe:Heroe ): Observable<any> {
+
+    let body = JSON.stringify (heroe);
+    let headers:HttpHeaders = new HttpHeaders ( {
+      'Content-Type':'application/json'
+    })
+
+    let url=`${this.heroeUrl}/${heroe.key}.json`
+    return this.http.put (url, body, { headers } ).pipe ();
+  }
+
+  getHeroe ( heroe:Heroe ): Observable<any> {
+
+    let headers:HttpHeaders = new HttpHeaders ( {
+      'Content-Type':'application/json'
+    })
+
+    let url=`${this.heroeUrl}/${heroe.key}.json`
+    return this.http.get (url, { headers } ).pipe ();
+  }
+
+
+  getHeroes (): Observable<any> {
+
+    let headers:HttpHeaders = new HttpHeaders ( {
+      'Content-Type':'application/json'
+    })
+
+    return this.http.get (this.url, { headers } ).pipe ();
+  }
+
+  borrarHeroe ( k:string ): Observable<any> {
+
+    let headers:HttpHeaders = new HttpHeaders ( {
+      'Content-Type':'application/json'
+    })
+
+    let url=`${ this.heroeUrl }/${ k }.json`
+    return this.http.delete (url, { headers } ).pipe ();
+  }
+
+
+
+
+
+
+
+
 
 
 }

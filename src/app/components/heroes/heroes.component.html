@@ -22,11 +22,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr *ngFor="let k of heroes | keys; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{heroes[k].nombre}}</td>
+            <td>{{heroes[k].casa}}</td>
+            <td>
+              <button type="button" class="btn btn-outline-success" [routerLink]="['/','heroe', k]" name="button">Editar</button>
+              <button type="button" class="btn btn-outline-danger ml-1" name="button" (click)="eliminarHeroe(k)">Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>
